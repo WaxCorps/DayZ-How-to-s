@@ -1,0 +1,15 @@
+____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________										
+Classname |	Coefficient | MaxStock | (optional)|	BuyPrice	|SellPrice	|	StockCount |Coefficient_BuyPrice with StockCount |	Coefficient_SellPrice with StockCount |	Lowest Buy Price At Max Stock |	Lowest Sell Price At Max Stock |	 Coefficients| 	MaxStocks|	Sell %	|				
+TestObject| 	1.000   |  30	   |   60%     |  $1,000.00     |   60%		|        15	   |              1000	                 |                600	                  |               1000	          |                 600	           |        1.000 	 |      25	 |    60%	|				
+				
+                         ---Correct Format ---
+
+    {
+      "CategoryName": "Classname",
+      "Products": [
+        "Classname,1,-1,1,16000,9600",
+        "Classname,1,-1,1,16000,9600",
+        "Classname,1,-1,1,16000,9600",
+        "Classname,1,-1,1,16000,9600"
+      ]
+    },
