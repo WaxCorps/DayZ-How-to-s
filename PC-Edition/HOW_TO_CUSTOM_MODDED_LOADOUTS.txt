@@ -1,0 +1,385 @@
+                   \\     HOW TO CREATE A CUSTOM MODDED CHARCTER LOADOUT   \\
+<!--
+1. HAVE A CLOTHING MOD READY ON YOUR SERVER. LOAD IN PUT ON THE OUTFIT (ASSUMING YOUR USING AN ADMIN TOOL)
+ONCE YOU GET AN OUTFIT YOU LIKE. DROP EACH ITEM ON THE GROUND AND LOOK AT ITS CLASS NAME WITH AN 
+"ESP TOOL" FROM YOUR ADMIN TOOL. THEN EITHER COPY THE CLASSNAME -.- OR -.- LOOK IT UP IN THE TYPES FILE,
+CORRESPONDING TO ITS MOD.
+ONCE YOU HAVE ALL CLASS NAMES OF EACH ITEM YOU WOULD LIKE TO USE. THEN WE CAN PROCEED FORWARD. -->
+
+2. THIS IS A LIMITED TEMPLATE FOR A CHARACTER LOADOUT.
+ALL CLOTHING ITEMS:
+
+--GUNS ON EACH SHOULDER
+--DUAL BANDAGE
+--A MAP
+--AN A DRINK.
+
+ALL ITEMS ARE CONFIGURED TO SPAWN IN RANDOM HEALTH. AND FULL QUANTITY (WHERE APPLICABLE)
+
+Configuration Values For Items Health and Quantity: \\ PRESTINE OR NO?? FULL QAUNTITY OR NO??? \\
+
+Health Values:                                     Qaunity Values:
+
+ \                                 \         \   1.0 = 100% full
+ /   Random (0.5 - 1.0)            /         /    0.5 = 50% full
+ \   Badly Damaged (0.3 - 0.5)     \         \    These two values control how full an item is when the player spawns with it.
+ /   Damaged (0.5 - 0.7)           /         /      They apply only to items that have a quantity, such as:
+ \  Worn (0.7 -0.9)                \         \       - Ammo stacks • 	Food portions - Liquid containers (canteens, bottles)
+ /   Prestine ( 1.0 )              /         /    - Batteries - Spray cans - Medical items with doses - Fuel containers
+----------------------------------------------------------------------------------------------------------------------------------------
+IF FOLLOWED TIP .1 ALL YOU WILL NEED TO DO IS REPLACE THE "itemType" CLASS NAME WITH THE CLASS NAME OF THE ITEM YOU WANT TO USE.
+
+  "itemType": "LeatherStorageVest_Beige", <!-- OLD   -.- VS -.- NEW --> "itemType": "HuntingVest"
+
+  MAKE SURE YOU ARE ALWAYS IN THE CORRECT SLOT. IF ITS A VEST. IT NEEDS TO GO WITH "slotName": "Vest",
+ IF ITS A HAT IT NEEDS TO GO WITH "slotName": "Headgear" ETC. ETC...
+-----------------------------------------------------------------------------------------------------------------------------------------------
+"SIMPLE" This is a list where you can define extra items that should be attached to, inserted into, or placed inside the parent item.
+Remember that item you adding items into is limited on space and weight. So be mindful of what you add in here.
+You can add in as many items as you want, but if the parent item is a small backpack, then adding in 10 rifles will not work.
+The parent item needs to have enough space and weight capacity to hold the items you are adding in here.
+
+"complex"  is used for items that require detailed configuration, such as:
+• 	Attachments with their own health/quantity
+• 	Magazines with ammo inside
+• 	Items that need nested children
+• 	Items that need randomized sets
+• 	Anything that needs more than just “spawn this item inside”
+It is the advanced version of .
+
+to add an item in here, you need to add the class name, 
+---------------------------------------------------------------------------------------------------------
+        "simpleChildrenTypes": [],  &   "complexChildrenTypes": []
+                                      |
+        "simpleChildrenTypes":[       |      "complexChildrenTypes": [
+             "Candycane_RedGreen"     |       {
+             "ADD_CLASSNAME"          |      "attributes": {
+                                      |        "healthMin": 1.0,
+                                      |      "healthMax": 1.0,
+                                      |      "quantityMin": 1.0,
+                                      |       "quantityMax": 1.0
+                                      |  },
+                                      |       "quickBarSlot": -1,
+                                      |        "simpleChildrenTypes": [
+                                      |          "Battery9V"
+                                      |   ],
+                                      |          "simpleChildrenUseDefaultAttributes": false
+                                      |   },
+                                      |  {
+                                      |       "itemType": "Rangefinder",
+                                      |      "attributes": {
+                                      |       "healthMin": 1.0,
+                                      |       "healthMax": 1.0,
+                                      |       "quantityMin": 1.0,
+                                      |       "quantityMax": 1.0
+                                      |     },
+                                      |       "quickBarSlot": -1,
+                                      |       "simpleChildrenTypes": [
+                                      |         "Battery9V"
+                                      |     ],
+                                      |        "simpleChildrenUseDefaultAttributes": false
+                                      |      },
+                                      |      {
+                                      |        "itemType": "PersonalRadio",
+                                      |        "attributes": {
+                                      |        "healthMin": 1.0,
+                                      |        "healthMax": 1.0,
+                                      |        "quantityMin": 1.0,
+                                      |      "quantityMax": 1.0
+                                      |        },
+                                      |    "quickBarSlot": -1
+                                      |     }
+                                      |
+-------------------------------------------------------------------------------------------------------
+                  
+-->
+
+{
+    "spawnWeight": 1,
+    "name": "Practice_DEFINITIONS",
+    "characterTypes": [
+<!--FEMALES -->
+        "SurvivorF_Eva",
+        "SurvivorF_Frida",
+        "SurvivorF_Gabi",
+        "SurvivorF_Helga",
+        "SurvivorF_Irena",
+        "SurvivorF_Judy",
+        "SurvivorF_Keiko",
+        "SurvivorF_Linda",
+        "SurvivorF_Maria",
+        "SurvivorF_Naomi",
+        "SurvivorF_Baty",
+<!-- MALES -->
+        "SurvivorM_Mirek",
+        "SurvivorM_Boris",
+        "SurvivorM_Cyril",
+        "SurvivorM_Denis",
+        "SurvivorM_Elias",
+        "SurvivorM_Francis",
+        "SurvivorM_Guo",
+        "SurvivorM_Hassan",
+        "SurvivorM_Indar",
+        "SurvivorM_Jose",
+        "SurvivorM_Kaito",
+        "SurvivorM_Lewis",
+        "SurvivorM_Manua",
+        "SurvivorM_Niki",
+        "SurvivorM_Oliver",
+        "SurvivorM_Peter",
+        "SurvivorM_Quinn",
+        "SurvivorM_Rolf",
+        "SurvivorM_Seth",
+        "SurvivorM_Taiki"
+    ],
+    "attachmentSlotItemSets": [
+        {
+            "slotName": "Vest",
+            "discreteItemSets": [
+                {
+                    "itemType": "LeatherStorageVest_Beige",
+                    "spawnWeight": 1,
+                    "attributes": {
+                        "healthMin": 0.5,
+                        "healthMax": 1.0,
+                        "quantityMin": 1.0,
+                        "quantityMax": 1.0
+                    },
+                    "quickBarSlot": -1,
+                    "simpleChildrenTypes": [],
+                    "simpleChildrenUseDefaultAttributes": false,
+                    "complexChildrenTypes": []
+                }
+            ]
+        },
+        {
+            "slotName": "Headgear",
+            "discreteItemSets": [
+                {
+                    "itemType": "LeatherHat_Black",
+                    "spawnWeight": 1,
+                    "attributes": {
+                        "healthMin": 0.5,
+                        "healthMax": 1.0,
+                        "quantityMin": 1.0,
+                        "quantityMax": 1.0
+                    },
+                    "quickBarSlot": -1,
+                    "simpleChildrenTypes": [],
+                    "simpleChildrenUseDefaultAttributes": false,
+                    "complexChildrenTypes": []
+                }
+            ]
+        },
+        {
+            "slotName": "Gloves",
+            "discreteItemSets": [
+                {
+                    "itemType": "LeatherGloves_Beige",
+                    "spawnWeight": 1,
+                    "attributes": {
+                        "healthMin": 0.5,
+                        "healthMax": 1.0,
+                        "quantityMin": 1.0,
+                        "quantityMax": 1.0
+                    },
+                    "quickBarSlot": -1,
+                    "simpleChildrenTypes": [],
+                    "simpleChildrenUseDefaultAttributes": false,
+                    "complexChildrenTypes": []
+                }
+            ]
+        },
+        {
+            "slotName": "Armband",
+            "discreteItemSets": [
+                {
+                    "itemType": "Armband_Yellow",
+                    "spawnWeight": 1,
+                    "attributes": {
+                        "healthMin": 0.5,
+                        "healthMax": 1.0,
+                        "quantityMin": 1.0,
+                        "quantityMax": 1.0
+                    },
+                    "quickBarSlot": -1,
+                    "simpleChildrenTypes": [],
+                    "simpleChildrenUseDefaultAttributes": false,
+                    "complexChildrenTypes": []
+                }
+            ]
+        },
+        {
+            "slotName": "Body",
+            "discreteItemSets": [
+                {
+                    "itemType": "LeatherShirt_Natural",
+                    "spawnWeight": 1,
+                    "attributes": {
+                        "healthMin": 0.5,
+                        "healthMax": 1.0,
+                        "quantityMin": 1.0,
+                        "quantityMax": 1.0
+                    },
+                    "quickBarSlot": -1,
+                    "simpleChildrenTypes": [],
+                    "simpleChildrenUseDefaultAttributes": false,
+                    "complexChildrenTypes": []
+                }
+            ]
+        },
+        {
+            "slotName": "Legs",
+            "discreteItemSets": [
+                {
+                    "itemType": "LeatherPants_Natural",
+                    "spawnWeight": 1,
+                    "attributes": {
+                        "healthMin": 0.5,
+                        "healthMax": 1.0,
+                        "quantityMin": 1.0,
+                        "quantityMax": 1.0
+                    },
+                    "quickBarSlot": -1,
+                    "simpleChildrenTypes": [],
+                    "simpleChildrenUseDefaultAttributes": false,
+                    "complexChildrenTypes": []
+                }
+            ]
+        },
+        {
+            "slotName": "Feet",
+            "discreteItemSets": [
+                {
+                    "itemType": "LeatherShoes_Beige",
+                    "spawnWeight": 1,
+                    "attributes": {
+                        "healthMin": 0.5,
+                        "healthMax": 1.0,
+                        "quantityMin": 1.0,
+                        "quantityMax": 1.0
+                    },
+                    "quickBarSlot": -1,
+                    "simpleChildrenTypes": [],
+                    "simpleChildrenUseDefaultAttributes": false,
+                    "complexChildrenTypes": []
+                }
+            ]
+        },
+        {
+            "slotName": "Eyewear",
+            "discreteItemSets": [
+                {
+                    "itemType": "AviatorGlasses",
+                    "spawnWeight": 1,
+                    "attributes": {
+                        "healthMin": 0.5,
+                        "healthMax": 1.0,
+                        "quantityMin": 1.0,
+                        "quantityMax": 1.0
+                    },
+                    "quickBarSlot": -1,
+                    "simpleChildrenTypes": [],
+                    "simpleChildrenUseDefaultAttributes": false,
+                    "complexChildrenTypes": []
+                }
+            ]
+        },
+        {
+            "slotName": "Mask",
+            "discreteItemSets": [
+                {
+                    "itemType": "Bandana_Camopattern",
+                    "spawnWeight": 1,
+                    "attributes": {
+                        "healthMin": 0.5,
+                        "healthMax": 1.0,
+                        "quantityMin": 1.0,
+                        "quantityMax": 1.0
+                    },
+                    "quickBarSlot": -1,
+                    "simpleChildrenTypes": [],
+                    "simpleChildrenUseDefaultAttributes": false,
+                    "complexChildrenTypes": []
+                }
+            ]
+        },
+        {
+            "slotName": "Back",
+            "discreteItemSets": [
+                {
+                    "itemType": "LeatherSack_Beige",
+                    "spawnWeight": 1,
+                    "attributes": {
+                        "healthMin": 0.5,
+                        "healthMax": 1.0,
+                        "quantityMin": 1.0,
+                        "quantityMax": 1.0
+                    },
+                    "quickBarSlot": -1,
+                    "simpleChildrenTypes": [],
+                    "simpleChildrenUseDefaultAttributes": false,
+                    "complexChildrenTypes": []
+                }
+            ]
+        },
+        {
+            "slotName": "Hips",
+            "discreteItemSets": [
+                {
+                    "itemType": "LeatherBelt_Beige",
+                    "spawnWeight": 1,
+                    "attributes": {
+                        "healthMin": 0.5,
+                        "healthMax": 1.0,
+                        "quantityMin": 1.0,
+                        "quantityMax": 1.0
+                    },
+                    "quickBarSlot": -1,
+                    "simpleChildrenTypes": [],
+                    "simpleChildrenUseDefaultAttributes": false,
+                    "complexChildrenTypes": []
+                }
+            ]
+        },
+        {
+            "slotName": "shoulderL",
+            "discreteItemSets": [
+                {
+                    "itemType": "AK101",
+                    "spawnWeight": 1,
+                    "attributes": {
+                        "healthMin": 0.5,
+                        "healthMax": 1.0,
+                        "quantityMin": 1.0,
+                        "quantityMax": 1.0
+                    },
+                    "quickBarSlot": -1,
+                    "simpleChildrenTypes": [],
+                    "simpleChildrenUseDefaultAttributes": false,
+                    "complexChildrenTypes": []
+                }
+            ]
+        },
+        {
+            "slotName": "shoulderR",
+            "discreteItemSets": [
+                {
+                    "itemType": "AK101",
+                    "spawnWeight": 1,
+                    "attributes": {
+                        "healthMin": 0.5,
+                        "healthMax": 1.0,
+                        "quantityMin": 1.0,
+                        "quantityMax": 1.0
+                    },
+                    "quickBarSlot": -1,
+                    "simpleChildrenTypes": [],
+                    "simpleChildrenUseDefaultAttributes": false,
+                    "complexChildrenTypes": []
+                }
+            ]
+        }
+    ],
+    "discreteUnsortedItemSets": []
+}
