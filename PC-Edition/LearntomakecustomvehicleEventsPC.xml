@@ -1,0 +1,163 @@
+                     \Basics \for \making \modded \cars \spawn \in \your \dayZ \server \NaTuRaLy XD
+                    <!--SNIPPET - . - // EVENTS \\ // SPAWNABLETYPES \\ //EVENTSPAWNS \\ - . - SNIPPET-->
+<!-- // Workers Snippets \\ -->
+
+<!-- On This Snippet, you must add all main vehicles class name. You will get this from spawning in the vehicle through an admin tool, or loading the mod with editor.
+Can also find it in types.xml,check with the mods creator for the classname if you can not find it. -->
+
+<!--if there are 5 vehicles, ( 1 orange , 1 red. 1 purple. etc, etc , you will need to make that many snippet entries)-->
+( varient = color of the vehicle, or if there are different models of the same vehicle,
+ then that would be a variant as well. however for different models, there will need to be a whole new,
+ Events Snippet. with the different vairants of that model added to the snippet as well. ) 
+
+            <child lootmax="0" lootmin="0" max="5" min="3" type="Classname_blue"/> <!-- This a Variant-->
+            <child lootmax="0" lootmin="0" max="5" min="3" type="Classname_purple"/>
+
+            <!--SNIPPET - . - // EVENTS \\ // SPAWNABLETYPES \\ //EVENTSPAWNS \\ - . - SNIPPET-->
+
+<!--Adding to the event.xml-->
+<!--the class name truly doesnt matter. but it it would be wise to name it similar to the vehicle. 
+for now i will be using the BMW_M3 as an example, -->
+
+ // HOWEVER!!! , events.xml & eventspawns.xml names need to match,
+ so if you name the event "Vehicle_BMW_M3" then the eventspawns.xml
+  needs to be named "Vehicle_BMW_M3" as well.
+
+ <!-- now if you look down just a litte, you see. the different color variations of the BMW_M3
+  for Each Variton you will need to make that extra Snippet Entry.-->
+
+//DO NOT CONFUSE THIS FOR TYPES.XML KEEP NOMINAL TO 0, MIN TO 0, MAX TO 0, RESTOCK TO 0. ON YOUR TYPES.XML\\	
+//THIS IS THE EVENTS.XML\\
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<events>
+    <event name="classname of Vehicle /  EX: Vehicle_BMW_M3">
+        <nominal>0</nominal>
+        <min>0</min>
+        <max>0</max>
+        <lifetime>3888000</lifetime>
+        <restock>0</restock>
+        <saferadius>500</saferadius>
+        <distanceradius>500</distanceradius>
+        <cleanupradius>200</cleanupradius>
+        <flags deletable="0" init_random="0" remove_damaged="1"/>
+        <position>player</position>
+        <limit>custom</limit>
+        <active>1</active>
+        <children>
+         <child lootmax="3" lootmin="2" max="1" min="1" type="BMW_M3_Black"/>
+         <child lootmax="3" lootmin="2" max="1" min="1" type="BMW_M3_Blue"/>
+         <child lootmax="3" lootmin="2" max="1" min="1" type="BMW_M3_Green"/>
+         <child lootmax="3" lootmin="2" max="1" min="1" type="BMW_M3_Orange"/>
+         <child lootmax="3" lootmin="2" max="1" min="1" type="BMW_M3_Red"/>
+         <child lootmax="3" lootmin="2" max="1" min="1" type="BMW_M3_White"/>
+        </children>
+    </event>
+</events>
+
+
+                                   // Workers Spawnable Snippet \\
+
+<!--Grab the classname of the vehicle "variant" you want to spawn, and add it to the snippet below,
+ you can also add attachments to the vehicle as well,
+just make sure to match the colors of the attachments to the vehicle, 
+if there is a red car, make sure to add red doors, red trunk/hood/backdoor, etc.-->
+ 
+<!-- IF it matches the name of located in the types.xml.
+ be sure to check for compatibility, you can not add mods, to other mods.lol DO NOT DO THIS!!!!!
+ make sure to add all trunk/hood/door/wheels attachments for the vehicle to spawn with them.
+ also remember that vehicles have a fixed storage compaciity, so do not over do it with attachments.-->
+  
+ 
+  <type name="classname of Vehicle /  EX: BMW_M3_Black">
+		<attachments chance="1.00">
+			<item name="classname_trunk/hood/backdoor/" chance="1.00" />
+		</attachments>
+		<attachments chance="1.00">
+			<item name="classname_trunk/hood/backdoor/" chance="1.00" />
+	</attachments>
+
+                        - . - // EVENTS \\ // SPAWNABLETYPES \\ //EVENTSPAWNS \\ - . - 
+                                   COPY AND PASTE SNIPPET AS A Spawnbletpye.xml
+//THIS IS THE SPAWNABLESTYPES.XML\\
+
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<spawnabletypes>
+    <type name="Classname of the VARIANT / EX: BMW_M3_Blue">
+		<attachments chance="1.00">
+			<item name="classname_door" chance="1.00" />
+		</attachments>
+		<attachments chance="1.00">
+			<item name="classname_codriver_door" chance="1.00" />
+		</attachments>
+		<attachments chance="1.00">
+			<item name="classname_trunk/hood/backdoor" chance="1.00" />
+		</attachments>
+     <attachments chance="1.00">
+			<item name="CarBattery" chance="1.00" />
+		</attachments>
+		<attachments chance="1.00">
+			<item name="SparkPlug" chance="1.00" />
+		</attachments>
+		<attachments chance="1.00">
+			<item name="HeadlightH7" chance="1.00" />
+		</attachments>
+		<attachments chance="1.00">
+			<item name="HeadlightH7" chance="1.00" />
+		</attachments>
+	</type>
+    <type name="classname">
+		<attachments chance="1.00">
+			<item name="classname_trunk/hood/backdoor" chance="1.00" />
+		</attachments>
+		<attachments chance="1.00">
+			<item name="classname_trunk/hood/backdoor" chance="1.00" />
+		</attachments>
+		<attachments chance="1.00">
+			<item name="classname_trunk/hood/backdoor" chance="1.00" />
+		</attachments>
+       <attachments chance="1.00">
+			<item name="CarBattery" chance="1.00" />
+		</attachments>
+		<attachments chance="1.00">
+			<item name="SparkPlug" chance="1.00" />
+		</attachments>
+		<attachments chance="1.00">
+			<item name="HeadlightH7" chance="1.00" />
+		</attachments>
+		<attachments chance="1.00">
+			<item name="HeadlightH7" chance="1.00" />
+		</attachments>
+	  </type>
+
+END OF SNIPPET,
+                     - . - // EVENTS \\ // SPAWNABLETYPES \\ //EVENTSPAWNS \\ - . -
+ 
+	     			//	 eventspawns.xml event names need to match the event.xml name.
+                                                   like shown below, & above.   \\
+
+			// Remember to have the word "Vehicle" infront of the events.xml & eventspawns.xml
+			               Like Shown Above & Below \\
+
+                                     //THIS IS JUST A WORK SECTION\\
+
+	    <event name="Vehicle_BMW_M3">
+		<pos x="1954.625000" z="11468.542969" a="88.946365"/>
+	
+
+	             //Eventspawns Snippet these locations are for the Banov Map\\  
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+ <eventposdef>
+    <event name="Vehicle_BMW_M3">
+		<pos x="1954.625000" z="11468.542969" a="88.946365"/>
+		<pos x="2129.363037" z="12241.110352" a="88.946365"/>
+		<pos x="11314.929688" z="7640.910645" a="-148.642426"/>
+	</event>
+</eventposdef>
+
+// To add Coordinates please look up on youtube on how to add more coordinates to the eventspawns.xml,
+ its very simple and there are many videos on how to do it. \\
+
+                      <!--//REMEMBER TO // VALIDATE \\ // BEAUTIFY \\ // MINIFY \\-->
