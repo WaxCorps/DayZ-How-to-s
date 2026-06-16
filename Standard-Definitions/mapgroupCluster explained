@@ -1,0 +1,386 @@
+//////////////////////////////////////////////////////////////////////
+// DAYZ MAPCLUSTERS.XML - COMPLETE LEARNING FILE
+//
+// PURPOSE:
+// This file controls CLUSTER SPAWNING for the Central Economy (CE)
+//
+// Unlike mapgroupproto/mapgrouppos (which spawn structures),
+// mapclusters.xml controls:
+//
+// - WHERE loot naturally spawns in the world
+// - HOW loot is grouped in regions
+// - DENSITY of loot zones
+//
+// THINK OF IT AS:
+//
+// mapgroupproto  = built structures
+// mapgrouppos     = where structures go
+// mapclusters.xml = where loot naturally spawns in the environment
+//////////////////////////////////////////////////////////////////////
+
+
+
+//////////////////////////////////////////////////////////////////////
+// BASIC CLUSTER STRUCTURE
+//////////////////////////////////////////////////////////////////////
+
+<cluster name="Military">
+
+    <!--
+    NAME:
+    Defines a loot "region type"
+
+    Examples:
+    - Military
+    - Industrial
+    - Residential
+    - Farm
+    -->
+
+
+
+    //////////////////////////////////////////////////////////////////
+    // POSITION AREA
+    //////////////////////////////////////////////////////////////////
+
+    <position x="5000" z="7000" radius="200" />
+
+    <!--
+    x = world X coordinate
+    z = world Z coordinate
+    radius = how far loot spreads
+
+    This defines a LOOT ZONE AREA
+    -->
+
+
+
+    //////////////////////////////////////////////////////////////////
+    // LOOT TYPES INSIDE CLUSTER
+    //////////////////////////////////////////////////////////////////
+
+    <type name="AKM" chance="0.05" />
+
+    <type name="M4A1" chance="0.03" />
+
+    <type name="AmmoBox_545x39_20Rnd" chance="0.20" />
+
+    <type name="BandageDressing" chance="0.60" />
+
+
+
+    <!--
+    type = item classname from types.xml
+
+    chance = spawn probability inside cluster
+
+    Higher chance = more common loot
+    Lower chance = rare loot
+    -->
+
+</cluster>
+
+
+
+//////////////////////////////////////////////////////////////////////
+// HOW CLUSTERS WORK (IMPORTANT)
+//////////////////////////////////////////////////////////////////////
+
+/*
+CLUSTERS DO NOT SPAWN BUILDINGS.
+
+They ONLY influence:
+
+- loot distribution
+- loot density
+- loot types in region
+
+Buildings still come from:
+mapgroupproto.xml + mapgrouppos.xml
+*/
+
+
+
+//////////////////////////////////////////////////////////////////////
+// MILITARY CLUSTER EXAMPLE
+//////////////////////////////////////////////////////////////////////
+
+<cluster name="Military">
+
+    <position x="4500" z="8200" radius="300" />
+
+    <type name="AKM" chance="0.04" />
+    <type name="M4A1" chance="0.02" />
+    <type name="PlateCarrierVest" chance="0.03" />
+
+    <type name="AmmoBox_556x45_20Rnd" chance="0.25" />
+    <type name="BandageDressing" chance="0.70" />
+
+</cluster>
+
+
+
+RESULT:
+
+- high tier loot near military zones
+- more weapon spawns
+- more tactical gear
+
+
+
+//////////////////////////////////////////////////////////////////////
+// INDUSTRIAL CLUSTER EXAMPLE
+//////////////////////////////////////////////////////////////////////
+
+<cluster name="Industrial">
+
+    <position x="6000" z="5000" radius="250" />
+
+    <type name="Hammer" chance="0.30" />
+    <type name="Pipe" chance="0.40" />
+    <type name="Crowbar" chance="0.20" />
+
+    <type name="Nails" chance="0.50" />
+
+</cluster>
+
+
+
+RESULT:
+
+- tools spawn more often
+- survival crafting items
+- low combat loot
+
+
+
+//////////////////////////////////////////////////////////////////////
+// RESIDENTIAL CLUSTER EXAMPLE
+//////////////////////////////////////////////////////////////////////
+
+<cluster name="Residential">
+
+    <position x="7000" z="6500" radius="400" />
+
+    <type name="FoodCan_Spaghetti" chance="0.50" />
+    <type name="SodaCan_Cola" chance="0.40" />
+    <type name="Apple" chance="0.60" />
+
+    <type name="TacticalBaconCan" chance="0.10" />
+
+</cluster>
+
+
+
+RESULT:
+
+- survival food spawns
+- low tier loot
+- starter gear zones
+
+
+
+//////////////////////////////////////////////////////////////////////
+// FARM CLUSTER EXAMPLE
+//////////////////////////////////////////////////////////////////////
+
+<cluster name="Farm">
+
+    <position x="8000" z="7000" radius="500" />
+
+    <type name="Shovel" chance="0.20" />
+    <type name="Seeds_Pumpkin" chance="0.40" />
+    <type name="Hoe" chance="0.25" />
+
+</cluster>
+
+
+
+RESULT:
+
+- farming tools
+- survival crafting items
+- rural loot areas
+
+
+
+//////////////////////////////////////////////////////////////////////
+// HOW RADIUS WORKS
+//////////////////////////////////////////////////////////////////////
+
+/*
+radius defines LOOT SPREAD AREA
+
+Example:
+
+radius="100"
+
+→ tight loot zone (military base)
+
+radius="500"
+
+→ large spread (farmland / countryside)
+
+Bigger radius = more random distribution
+*/
+
+
+
+//////////////////////////////////////////////////////////////////////
+// HOW CHANCE WORKS
+//////////////////////////////////////////////////////////////////////
+
+/*
+chance = probability weight
+
+Example:
+
+chance="0.10" = rare
+chance="0.50" = common
+chance="0.90" = very common
+
+IMPORTANT:
+It is NOT guaranteed spawn chance.
+It is weighted distribution.
+*/
+
+
+
+//////////////////////////////////////////////////////////////////////
+// HOW CLUSTERS INTERACT WITH TYPES.XML
+//////////////////////////////////////////////////////////////////////
+
+/*
+CLUSTERS DO NOT override types.xml.
+
+Instead:
+
+types.xml defines:
+- item lifetime
+- nominal count
+- min/max spawn
+- economy category
+
+clusters define:
+- WHERE those items appear more often
+*/
+
+
+
+//////////////////////////////////////////////////////////////////////
+// FULL SYSTEM FLOW
+//////////////////////////////////////////////////////////////////////
+
+/*
+1. mapgroupproto.xml
+→ builds world structures
+
+2. mapgrouppos.xml
+→ places structures
+
+3. mapclusters.xml
+→ defines loot density zones
+
+4. types.xml
+→ defines item rules
+
+5. Central Economy engine
+→ combines everything into live world
+*/
+
+
+
+//////////////////////////////////////////////////////////////////////
+// ADVANCED DESIGN STRATEGY
+//////////////////////////////////////////////////////////////////////
+
+/*
+
+MILITARY ZONES:
+- small radius
+- high weapon chance
+- concentrated loot
+
+CITY ZONES:
+- medium radius
+- mixed loot types
+
+FARMLAND:
+- large radius
+- survival loot only
+
+COASTLINE:
+- balanced loot spread
+- beginner gear focus
+*/
+
+
+
+//////////////////////////////////////////////////////////////////////
+// COMMON MISTAKES
+//////////////////////////////////////////////////////////////////////
+
+/*
+
+1. WRONG COORDINATES
+→ loot appears in wrong region
+
+2. TOO HIGH CHANCE VALUES
+→ loot spam everywhere
+
+3. NO TYPES.XML SUPPORT
+→ nothing actually spawns
+
+4. OVERLAPPING CLUSTERS
+→ unpredictable loot distribution
+
+5. TOO SMALL RADIUS
+→ loot feels empty or broken
+*/
+
+
+
+//////////////////////////////////////////////////////////////////////
+// WHY MAPCLUSTERS ARE IMPORTANT
+//////////////////////////////////////////////////////////////////////
+
+/*
+Without clusters:
+
+- loot feels random
+- no regional identity
+
+With clusters:
+
+- military feels military
+- towns feel lived in
+- survival progression works properly
+*/
+
+
+
+//////////////////////////////////////////////////////////////////////
+// FINAL SUMMARY
+//////////////////////////////////////////////////////////////////////
+
+/*
+mapgroupproto.xml
+→ builds objects
+
+mapgrouppos.xml
+→ places objects
+
+mapclusters.xml
+→ controls loot regions
+
+types.xml
+→ controls loot rules
+
+TOGETHER = FULL DAYZ ECONOMY SYSTEM
+*/
+
+
+
+//////////////////////////////////////////////////////////////////////
+// END OF MAPCLUSTERS.XML LEARNING FILE
+//////////////////////////////////////////////////////////////////////
