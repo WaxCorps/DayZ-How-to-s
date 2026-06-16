@@ -1,0 +1,323 @@
+//////////////////////////////////////////////////////////////////////
+// DAYZ MAPGROUPPROTO.XML - COMPLETE BEGINNER LEARNING FILE
+//
+// PURPOSE:
+// This file defines OBJECT GROUPS (prefabs)
+//
+// A "group" = multiple objects spawned together as one structure
+//
+// USED FOR:
+// - Military bases
+// - Camps
+// - Roadblocks
+// - Trader zones
+// - Crash sites
+// - Custom POI creation
+//
+// HOW IT WORKS:
+// 1. You DEFINE a group here (mapgroupproto.xml)
+// 2. You PLACE it on the map (mapgrouppos.xml)
+// 3. DayZ spawns everything inside the group automatically
+//////////////////////////////////////////////////////////////////////
+
+
+
+//////////////////////////////////////////////////////////////////////
+// BASIC GROUP STRUCTURE
+//////////////////////////////////////////////////////////////////////
+
+<group name="ExampleGroup">
+
+    <!--
+    GROUP NAME
+    - Must be unique
+    - Used in mapgrouppos.xml to spawn this group
+    - Think of it like a "blueprint name"
+    -->
+
+
+
+    //////////////////////////////////////////////////////////////////
+    // CHILD OBJECTS
+    //////////////////////////////////////////////////////////////////
+
+    <child
+        name="Land_TentDome"
+        pos="0 0 0"
+        rpy="0 0 0"
+    />
+
+    <!--
+    name = object classname (must exist in DayZ files)
+
+    pos = position offset inside the group
+        X = left/right
+        Y = height (up/down)
+        Z = forward/back
+
+    rpy = rotation (Roll Pitch Yaw)
+        Most important is YAW (3rd value)
+        Example:
+        rpy="0 0 90" = rotates object 90 degrees
+    -->
+
+
+
+    <child
+        name="Land_Fireplace"
+        pos="2 0 1"
+        rpy="0 0 0"
+    />
+
+
+
+    <child
+        name="Land_WoodenCrate"
+        pos="-2 0 2"
+        rpy="0 0 45"
+    />
+
+</group>
+
+
+
+//////////////////////////////////////////////////////////////////////
+// HOW POSITIONING WORKS (IMPORTANT)
+//////////////////////////////////////////////////////////////////////
+
+/*
+pos="X Y Z"
+
+Example:
+
+pos="10 0 -5"
+
+Means:
+
+X = 10  → move right
+Y = 0   → ground level
+Z = -5  → move backward
+*/
+
+
+
+//////////////////////////////////////////////////////////////////////
+// WORLD COORDINATE VISUALIZATION
+//////////////////////////////////////////////////////////////////////
+
+/*
+          NORTH (Z+)
+
+              |
+              |
+WEST (X-) ----+---- EAST (X+)
+              |
+              |
+          SOUTH (Z-)
+*/
+
+
+
+//////////////////////////////////////////////////////////////////////
+// ROTATION SYSTEM (rpy)
+//////////////////////////////////////////////////////////////////////
+
+<group name="RotationExamples">
+
+    <child name="Land_Barrel_Blue" pos="0 0 0" rpy="0 0 0" />
+    <!-- Facing forward -->
+
+    <child name="Land_Barrel_Blue" pos="2 0 0" rpy="0 0 90" />
+    <!-- Turned right -->
+
+    <child name="Land_Barrel_Blue" pos="4 0 0" rpy="0 0 180" />
+    <!-- Facing backward -->
+
+    <child name="Land_Barrel_Blue" pos="6 0 0" rpy="0 0 270" />
+    <!-- Facing left -->
+
+</group>
+
+
+
+//////////////////////////////////////////////////////////////////////
+// REAL USE CASE 1: SURVIVOR CAMP
+//////////////////////////////////////////////////////////////////////
+
+<group name="SurvivorCamp">
+
+    <child name="Land_TentDome" pos="0 0 0" rpy="0 0 0" />
+
+    <child name="Land_Fireplace" pos="2 0 1" rpy="0 0 0" />
+
+    <child name="Land_WoodenCrate" pos="-2 0 2" rpy="0 0 45" />
+
+    <child name="Land_Campfire" pos="1 0 -2" rpy="0 0 0" />
+
+</group>
+
+
+
+//////////////////////////////////////////////////////////////////////
+// REAL USE CASE 2: MILITARY ROADBLOCK
+//////////////////////////////////////////////////////////////////////
+
+<group name="MilitaryRoadblock">
+
+    <child name="Land_Mil_BarGate" pos="0 0 0" rpy="0 0 0" />
+
+    <child name="Land_BagFence_Long" pos="4 0 0" rpy="0 0 90" />
+
+    <child name="Land_BagFence_Long" pos="-4 0 0" rpy="0 0 90" />
+
+    <child name="Land_Mil_CamoNet" pos="0 0 3" rpy="0 0 0" />
+
+</group>
+
+
+
+//////////////////////////////////////////////////////////////////////
+// REAL USE CASE 3: TRADER COMPOUND
+//////////////////////////////////////////////////////////////////////
+
+<group name="TraderZone">
+
+    <child name="Land_Container_1Aoh" pos="0 0 0" rpy="0 0 0" />
+
+    <child name="Land_Container_1Aoh" pos="6 0 0" rpy="0 0 90" />
+
+    <child name="Land_Market_Stall" pos="3 0 5" rpy="0 0 180" />
+
+    <child name="Land_Table_Wooden" pos="2 0 2" rpy="0 0 0" />
+
+</group>
+
+
+
+//////////////////////////////////////////////////////////////////////
+// OPTIONAL ADVANCED SETTINGS (RARELY USED)
+//////////////////////////////////////////////////////////////////////
+
+<group name="AdvancedExample" lootmax="10" chance="0.50">
+
+    <!--
+    lootmax = max loot spawn points inside group
+    chance = probability of spawning (0.0 - 1.0)
+    -->
+
+    <child name="Land_Wreck_Car3" pos="0 0 0" rpy="0 0 0" />
+
+</group>
+
+
+
+//////////////////////////////////////////////////////////////////////
+// COMMON OBJECT TYPES USED IN GROUPS
+//////////////////////////////////////////////////////////////////////
+
+/*
+MILITARY:
+- Land_Mil_Barracks
+- Land_Mil_GuardHouse1
+- Land_BagFence_Long
+- Land_CamoNet
+
+SURVIVOR:
+- Land_TentDome
+- Land_Fireplace
+- Land_WoodenCrate
+- Land_Campfire
+
+INDUSTRIAL:
+- Land_Container_1Aoh
+- Land_Wreck_Truck
+- Land_Pallets_Stacked
+
+DECOR:
+- Land_Bench
+- Land_Lamp_Street
+- Land_Sign_Welcome
+*/
+
+
+
+//////////////////////////////////////////////////////////////////////
+// HOW THIS CONNECTS TO MAPGROUPOOS.XML
+//////////////////////////////////////////////////////////////////////
+
+/*
+STEP 1 (THIS FILE):
+
+Define group:
+
+<group name="MilitaryRoadblock">...</group>
+
+
+STEP 2 (mapgrouppos.xml):
+
+Place group in world:
+
+<group name="MilitaryRoadblock" pos="5400 3000" />
+
+RESULT:
+
+Entire structure spawns at that coordinate.
+*/
+
+
+
+//////////////////////////////////////////////////////////////////////
+// COMMON MISTAKES
+//////////////////////////////////////////////////////////////////////
+
+/*
+
+1. WRONG CLASSNAME
+Land_Barrack ❌
+Land_Mil_Barracks ✔
+
+-------------------------
+
+2. BAD ROTATION
+rpy missing → objects face random directions
+
+-------------------------
+
+3. FLOATING OBJECTS
+pos="0 5 0" → floating in air
+
+-------------------------
+
+4. UNDERGROUND OBJECTS
+pos="0 -2 0" → buried in terrain
+
+-------------------------
+
+5. NOT UNIQUE GROUP NAME
+Two groups with same name → conflicts
+*/
+
+
+
+//////////////////////////////////////////////////////////////////////
+// WHY THIS SYSTEM IS POWERFUL
+//////////////////////////////////////////////////////////////////////
+
+/*
+Instead of placing objects one-by-one in the editor:
+
+YOU BUILD ONCE HERE
+
+Then you can:
+
+- Spawn it anywhere on the map
+- Reuse it infinitely
+- Edit all instances by changing ONE group
+- Build full towns faster
+*/
+
+
+
+//////////////////////////////////////////////////////////////////////
+// END OF MAPGROUPPROTO.XML LEARNING FILE
+//////////////////////////////////////////////////////////////////////
