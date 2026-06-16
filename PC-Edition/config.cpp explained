@@ -1,0 +1,528 @@
+//////////////////////////////////////////////////////////////////////
+// DAYZ CONFIG.CPP BEGINNER REFERENCE GUIDE
+//
+// Everything below explains:
+// - What each section does
+// - Why it's needed
+// - How DayZ uses it
+//
+// Comments use:
+// // Single line comment
+// /* Multi-line comment */
+//////////////////////////////////////////////////////////////////////
+
+
+
+//////////////////////////////////////////////////////////////////////
+// CFGPATCHES
+//
+// This is the FIRST thing DayZ looks for.
+// Think of it as your mod's registration card.
+//
+// It tells DayZ:
+// - The mod exists
+// - What it contains
+// - What addons it depends on
+//////////////////////////////////////////////////////////////////////
+
+class CfgPatches
+{
+    class MyFirstMod
+    {
+        units[] = {};          // Vehicle & item classes
+
+        weapons[] = {};        // Weapon classes
+
+        requiredVersion = 0.1; // Minimum version
+
+        requiredAddons[] =
+        {
+            "DZ_Data",         // Core DayZ data
+            "DZ_Scripts"       // Core scripts
+        };
+    };
+};
+
+
+
+//////////////////////////////////////////////////////////////////////
+// CFGMODS
+//
+// Loads custom scripts.
+//
+// Without this section:
+// Your scripts will never load.
+//
+// Script folders:
+//
+// 1_Core
+// 2_GameLib
+// 3_Game
+// 4_World
+// 5_Mission
+//////////////////////////////////////////////////////////////////////
+
+class CfgMods
+{
+    class MyFirstMod
+    {
+        dir = "MyFirstMod";
+
+        picture = "";
+        action = "";
+        hideName = 1;
+        hidePicture = 1;
+
+        version = "1.0";
+
+        name = "My First Mod";
+
+        credits = "Your Name";
+
+        author = "Your Name";
+
+        authorID = "0";
+
+        inputs = "MyFirstMod/Data/Inputs.xml";
+
+        class defs
+        {
+            class gameScriptModule
+            {
+                files[] =
+                {
+                    "MyFirstMod/scripts/3_Game"
+                };
+            };
+
+            class worldScriptModule
+            {
+                files[] =
+                {
+                    "MyFirstMod/scripts/4_World"
+                };
+            };
+
+            class missionScriptModule
+            {
+                files[] =
+                {
+                    "MyFirstMod/scripts/5_Mission"
+                };
+            };
+        };
+    };
+};
+
+
+
+//////////////////////////////////////////////////////////////////////
+// CFGVEHICLES
+//
+// Most custom items live here.
+//
+// Food
+// Clothing
+// Tools
+// Containers
+// Vehicles
+//
+// DayZ treats many objects as "vehicles"
+// even when they aren't actual cars.
+//////////////////////////////////////////////////////////////////////
+
+class CfgVehicles
+{
+    //////////////////////////////////////////////////////////////////
+    // Parent class
+    //
+    // We inherit from Inventory_Base because
+    // most items already use it.
+    //////////////////////////////////////////////////////////////////
+
+    class Inventory_Base;
+
+
+
+    //////////////////////////////////////////////////////////////////
+    // CUSTOM ITEM
+    //////////////////////////////////////////////////////////////////
+
+    class My_Custom_Item : Inventory_Base
+    {
+        //////////////////////////////////////////////////////////////////
+        // Scope
+        //
+        // 0 = hidden
+        // 1 = internal
+        // 2 = visible/spawnable
+        //////////////////////////////////////////////////////////////////
+
+        scope = 2;
+
+        //////////////////////////////////////////////////////////////////
+        // Name shown in game
+        //////////////////////////////////////////////////////////////////
+
+        displayName = "Learning Item";
+
+        //////////////////////////////////////////////////////////////////
+        // Description shown in inventory
+        //////////////////////////////////////////////////////////////////
+
+        descriptionShort = "Example item used for learning config.cpp";
+
+        //////////////////////////////////////////////////////////////////
+        // Model path
+        //
+        // Must point to your .p3d file
+        //////////////////////////////////////////////////////////////////
+
+        model = "\MyFirstMod\models\item.p3d";
+
+        //////////////////////////////////////////////////////////////////
+        // Weight in grams
+        //////////////////////////////////////////////////////////////////
+
+        weight = 500;
+
+        //////////////////////////////////////////////////////////////////
+        // Inventory space
+        //
+        // Width x Height
+        //////////////////////////////////////////////////////////////////
+
+        itemSize[] = {2,2};
+
+        //////////////////////////////////////////////////////////////////
+        // Durability
+        //////////////////////////////////////////////////////////////////
+
+        varQuantityInit = 100;
+
+        //////////////////////////////////////////////////////////////////
+        // Maximum durability
+        //////////////////////////////////////////////////////////////////
+
+        varQuantityMax = 100;
+
+        //////////////////////////////////////////////////////////////////
+        // Health
+        //////////////////////////////////////////////////////////////////
+
+        class DamageSystem
+        {
+            class GlobalHealth
+            {
+                class Health
+                {
+                    hitpoints = 100;
+                };
+            };
+        };
+    };
+};
+
+
+
+//////////////////////////////////////////////////////////////////////
+// CFGWEAPONS
+//
+// Used for:
+//
+// Rifles
+// Pistols
+// Melee weapons
+// Attachments
+//////////////////////////////////////////////////////////////////////
+
+class CfgWeapons
+{
+    class Rifle_Base;
+
+    class My_Custom_Rifle : Rifle_Base
+    {
+        scope = 2;
+
+        displayName = "Learning Rifle";
+
+        descriptionShort =
+        "Example weapon configuration.";
+    };
+};
+
+
+
+//////////////////////////////////////////////////////////////////////
+// CFGMAGAZINES
+//
+// Controls:
+//
+// Magazine capacity
+// Ammo storage
+// Reloadable containers
+//////////////////////////////////////////////////////////////////////
+
+class CfgMagazines
+{
+    class Magazine_Base;
+
+    class My_Custom_Mag : Magazine_Base
+    {
+        scope = 2;
+
+        displayName = "Learning Magazine";
+
+        count = 30;
+    };
+};
+
+
+
+//////////////////////////////////////////////////////////////////////
+// CFGAMMO
+//
+// Defines projectile behavior
+//
+// Damage
+// Speed
+// Penetration
+//////////////////////////////////////////////////////////////////////
+
+class CfgAmmo
+{
+    class Bullet_Base;
+
+    class Learning_Bullet : Bullet_Base
+    {
+        hit = 75;
+
+        typicalSpeed = 850;
+
+        caliber = 1.0;
+    };
+};
+
+
+
+//////////////////////////////////////////////////////////////////////
+// CFGSOUNDSHADERS
+//
+// Raw sound files
+//
+// Think:
+//
+// "Which audio file plays?"
+//////////////////////////////////////////////////////////////////////
+
+class CfgSoundShaders
+{
+    class LearningShot_SoundShader
+    {
+        samples[] =
+        {
+            {"MyFirstMod\sounds\shot",1}
+        };
+
+        volume = 1;
+    };
+};
+
+
+
+//////////////////////////////////////////////////////////////////////
+// CFGSOUNDSETS
+//
+// Controls how sounds behave
+//
+// Echo
+// Reverb
+// Distance
+//
+// Think:
+//
+// "How does the sound act?"
+//////////////////////////////////////////////////////////////////////
+
+class CfgSoundSets
+{
+    class LearningShot_SoundSet
+    {
+        soundShaders[] =
+        {
+            "LearningShot_SoundShader"
+        };
+
+        volumeFactor = 1;
+
+        frequencyRandomizer = 1;
+    };
+};
+
+
+
+//////////////////////////////////////////////////////////////////////
+// COMMON VALUES YOU WILL USE OFTEN
+//////////////////////////////////////////////////////////////////////
+
+/*
+
+scope = 2;
+
+Makes item visible and spawnable.
+
+
+displayName = "Item Name";
+
+Name players see.
+
+
+descriptionShort = "Description";
+
+Inventory description.
+
+
+model = "\Folder\Model.p3d";
+
+3D model location.
+
+
+itemSize[] = {2,3};
+
+Inventory slots.
+
+
+weight = 500;
+
+Weight in grams.
+
+
+requiredAddons[] =
+{
+    "DZ_Data"
+};
+
+Dependencies.
+
+
+class NewItem : ParentItem
+
+Inheritance.
+
+Copies all settings from ParentItem.
+
+Only overwrite what you need.
+
+*/
+
+
+
+//////////////////////////////////////////////////////////////////////
+// MOST COMMON BEGINNER ERRORS
+//////////////////////////////////////////////////////////////////////
+
+/*
+
+ERROR #1
+
+scope = 2
+
+Missing semicolon.
+
+Correct:
+
+scope = 2;
+
+
+
+ERROR #2
+
+Wrong:
+
+class Item
+
+Correct:
+
+class Item
+{
+};
+
+
+
+ERROR #3
+
+Bad model path
+
+model = "\item.p3d";
+
+Correct:
+
+model = "\MyMod\models\item.p3d";
+
+
+
+ERROR #4
+
+Missing parent class
+
+Wrong:
+
+class MyItem
+
+Correct:
+
+class Inventory_Base;
+
+class MyItem : Inventory_Base
+
+
+
+ERROR #5
+
+Forgetting requiredAddons
+
+Can cause startup crashes.
+
+*/
+
+
+
+//////////////////////////////////////////////////////////////////////
+// FILE LOAD ORDER
+//
+// 1. CfgPatches
+// 2. CfgMods
+// 3. Scripts
+// 4. Items
+// 5. Weapons
+// 6. Magazines
+// 7. Sounds
+//////////////////////////////////////////////////////////////////////
+
+
+
+//////////////////////////////////////////////////////////////////////
+// LOG FILES TO CHECK WHEN THINGS BREAK
+//////////////////////////////////////////////////////////////////////
+
+/*
+
+DayZ_x64.RPT
+
+Most important file.
+
+
+script.log
+
+Script errors.
+
+
+server_console.log
+
+Server startup issues.
+
+*/
+
+//////////////////////////////////////////////////////////////////////
+// END OF CONFIG.CPP LEARNING GUIDE
+//////////////////////////////////////////////////////////////////////
