@@ -1,0 +1,328 @@
+//////////////////////////////////////////////////////////////////////
+// DAYZ MAPGROUPPOS.XML - COMPLETE BEGINNER LEARNING FILE
+//
+// PURPOSE:
+// This file tells DayZ WHERE to spawn object groups
+// (defined in mapgroupproto.xml)
+//
+// HOW IT WORKS:
+// 1. mapgroupproto.xml = WHAT spawns (the structure)
+// 2. mapgrouppos.xml    = WHERE it spawns (the placement)
+//
+// Think of it like:
+// - proto = blueprint
+// - pos   = placement on map
+//////////////////////////////////////////////////////////////////////
+
+
+
+//////////////////////////////////////////////////////////////////////
+// BASIC STRUCTURE
+//////////////////////////////////////////////////////////////////////
+
+<group name="ExampleGroup" pos="5000 5000" />
+
+<!--
+GROUP NAME:
+Must match EXACTLY a group name in mapgroupproto.xml
+
+Example:
+<group name="SurvivorCamp">
+
+If names don't match → NOTHING will spawn
+-->
+
+<!--
+POS VALUE:
+pos="X Z"
+
+X = East/West position on map grid
+Z = North/South position on map grid
+
+Y (height) is NOT normally used here
+DayZ calculates terrain height automatically
+-->
+
+
+
+//////////////////////////////////////////////////////////////////////
+// SIMPLE EXAMPLE
+//////////////////////////////////////////////////////////////////////
+
+<group name="SurvivorCamp" pos="6200 7400" />
+
+<!--
+This will spawn the entire SurvivorCamp group
+at coordinate 6200, 7400 on the map
+-->
+
+
+
+//////////////////////////////////////////////////////////////////////
+// MULTIPLE SPAWNS OF SAME GROUP
+//////////////////////////////////////////////////////////////////////
+
+<group name="SurvivorCamp" pos="6200 7400" />
+<group name="SurvivorCamp" pos="6300 7500" />
+<group name="SurvivorCamp" pos="6400 7600" />
+
+<!--
+Same structure reused multiple times
+This is how you create:
+- repeated camps
+- scattered loot areas
+- multiple bases
+-->
+
+
+
+//////////////////////////////////////////////////////////////////////
+// MILITARY ZONE EXAMPLE
+//////////////////////////////////////////////////////////////////////
+
+<group name="MilitaryRoadblock" pos="4500 9000" />
+<group name="MilitaryRoadblock" pos="4600 9100" />
+<group name="MilitaryRoadblock" pos="4700 9200" />
+
+<!--
+Creates a chain of roadblocks or checkpoints
+Useful for:
+- convoy routes
+- military patrol zones
+-->
+
+
+
+//////////////////////////////////////////////////////////////////////
+// TRADER ZONE PLACEMENT
+//////////////////////////////////////////////////////////////////////
+
+<group name="TraderZone" pos="3500 5500" />
+
+<!--
+Spawns full trader compound
+Make sure:
+- safe zone scripts match location
+- no AI or zombies inside if protected area
+-->
+
+
+
+//////////////////////////////////////////////////////////////////////
+// MAP COORDINATE UNDERSTANDING
+//////////////////////////////////////////////////////////////////////
+
+/*
+DayZ world uses a flat coordinate system:
+
+pos="X Z"
+
+Example:
+
+pos="5000 5000"
+
+means:
+- center-ish map area (depends on map)
+*/
+
+
+
+//////////////////////////////////////////////////////////////////////
+// VISUAL GRID REPRESENTATION
+//////////////////////////////////////////////////////////////////////
+
+/*
+        NORTH (Z+)
+             ↑
+
+WEST (X-) ← + → EAST (X+)
+
+             ↓
+        SOUTH (Z-)
+*/
+
+
+
+//////////////////////////////////////////////////////////////////////
+// HOW SPAWNING ACTUALLY WORKS
+//////////////////////////////////////////////////////////////////////
+
+/*
+When server starts:
+
+STEP 1:
+DayZ reads mapgrouppos.xml
+
+STEP 2:
+Finds group name
+
+STEP 3:
+Loads matching group from mapgroupproto.xml
+
+STEP 4:
+Spawns ALL child objects at that location
+with correct offsets and rotation
+*/
+
+
+
+//////////////////////////////////////////////////////////////////////
+// IMPORTANT RULE: NAME MATCHING
+//////////////////////////////////////////////////////////////////////
+
+/*
+These MUST match exactly:
+
+mapgroupproto.xml:
+<group name="MilitaryCheckpoint">
+
+mapgrouppos.xml:
+<group name="MilitaryCheckpoint" pos="5000 5000" />
+
+If spelling differs:
+- no errors sometimes
+- but NOTHING spawns
+*/
+
+
+
+//////////////////////////////////////////////////////////////////////
+// ADVANCED: CLUSTER SPAWNING
+//////////////////////////////////////////////////////////////////////
+
+<group name="SurvivorCamp" pos="6200 7400" />
+<group name="SurvivorCamp" pos="6210 7410" />
+<group name="SurvivorCamp" pos="6220 7420" />
+<group name="SurvivorCamp" pos="6230 7430" />
+
+<!--
+Creates dense zones like:
+
+- shanty towns
+- refugee camps
+- loot hotspots
+-->
+
+
+
+//////////////////////////////////////////////////////////////////////
+// ADVANCED: ZONE DESIGN STRATEGY
+//////////////////////////////////////////////////////////////////////
+
+/*
+GOOD DESIGN PRACTICE:
+
+MILITARY ZONE:
+- spread checkpoints
+- control sight lines
+- avoid stacking groups too close
+
+SURVIVOR ZONE:
+- cluster lightly
+- mix tents + props
+- random spacing
+
+TRADER ZONE:
+- single clean placement
+- avoid duplication
+*/
+
+
+
+//////////////////////////////////////////////////////////////////////
+// COMMON OBJECTIVE USE CASES
+//////////////////////////////////////////////////////////////////////
+
+/*
+1. MILITARY BASES
+<group name="MilitaryBase" pos="x z" />
+
+2. ROADBLOCK CHAINS
+<group name="Checkpoint" pos="x z" />
+
+3. CRASH SITE NETWORKS
+<group name="HeliCrash" pos="x z" />
+
+4. SURVIVOR CAMPS
+<group name="Camp" pos="x z" />
+
+5. CUSTOM CITIES
+<group name="TownBlock" pos="x z" />
+*/
+
+
+
+//////////////////////////////////////////////////////////////////////
+// COMMON MISTAKES
+//////////////////////////////////////////////////////////////////////
+
+/*
+
+1. WRONG GROUP NAME
+MilitaryCamp ❌
+Military_Camp ❌
+MilitaryCamp ✔ (must match proto exactly)
+
+-----------------------------
+
+2. NO MATCHING PROTO ENTRY
+If group doesn't exist in mapgroupproto.xml → nothing spawns
+
+-----------------------------
+
+3. OVERLAPPING SPAWNS
+Too many groups at same coords → object clipping
+
+-----------------------------
+
+4. WRONG MAP COORDINATES
+Outside map bounds → nothing appears
+
+-----------------------------
+
+5. EXPECTING HEIGHT CONTROL HERE
+Y-axis is NOT controlled in pos here
+Terrain handles height automatically
+*/
+
+
+
+//////////////////////////////////////////////////////////////////////
+// PERFORMANCE NOTES
+//////////////////////////////////////////////////////////////////////
+
+/*
+Too many groups can cause:
+
+- server lag
+- long restart times
+- object desync
+
+Best practice:
+- reuse groups instead of duplicating designs
+- avoid extreme density stacking
+*/
+
+
+
+//////////////////////////////////////////////////////////////////////
+// WHY THIS FILE IS IMPORTANT
+//////////////////////////////////////////////////////////////////////
+
+/*
+mapgroupproto.xml = WHAT exists
+mapgrouppos.xml    = WHERE it exists
+
+Together they allow you to:
+
+- build full custom maps
+- reuse structures infinitely
+- design dynamic world zones
+- control server identity
+*/
+
+
+
+//////////////////////////////////////////////////////////////////////
+// END OF MAPGROUPPOS.XML LEARNING FILE
+//////////////////////////////////////////////////////////////////////
