@@ -1,0 +1,384 @@
+//////////////////////////////////////////////////////////////////////
+// DAYZ MAPGROUPPROTO + MAPGROUPPOS
+// COMPLETE "BUILD + LOOT ZONE" LEARNING FILE
+//
+// PURPOSE:
+// This file explains how BOTH systems work together to:
+// - Spawn structures (buildings, props)
+// - Create themed zones (military, survivor, trader)
+// - Control loot flow through Central Economy (CE)
+//
+// CORE IDEA:
+//
+// mapgroupproto.xml = WHAT gets built
+// mapgrouppos.xml    = WHERE it gets built
+//
+// THEN loot systems (types.xml, events.xml) = WHAT spawns inside
+//////////////////////////////////////////////////////////////////////
+
+
+
+//////////////////////////////////////////////////////////////////////
+// PART 1 - WHAT YOU BUILD (mapgroupproto.xml concept)
+// ////////////////////////////////////////////////////////////////////
+
+<group name="MilitaryLootBase">
+
+    <!--
+    This group defines a FULL STRUCTURE SET
+
+    Think of it as a "prefab base"
+    Everything inside will ALWAYS spawn together
+    -->
+
+
+
+    <!-- MAIN BUILDING -->
+    <child
+        name="Land_Mil_GuardHouse1"
+        pos="0 0 0"
+        rpy="0 0 0"
+    />
+
+
+
+    <!-- STORAGE AREA -->
+    <child
+        name="Land_Mil_CamoNet"
+        pos="2 0 3"
+        rpy="0 0 0"
+    />
+
+
+
+    <!-- LOOT COVER -->
+    <child
+        name="Land_BagFence_Long"
+        pos="-4 0 2"
+        rpy="0 0 90"
+    />
+
+
+
+    <!-- LOOT COVER -->
+    <child
+        name="Land_BagFence_Long"
+        pos="4 0 2"
+        rpy="0 0 90"
+    />
+
+
+
+    <!-- CRATE AREA -->
+    <child
+        name="Land_WoodenCrate"
+        pos="0 0 -3"
+        rpy="0 0 0"
+    />
+
+</group>
+
+
+
+//////////////////////////////////////////////////////////////////////
+// PART 2 - WHERE IT SPAWNS (mapgrouppos.xml concept)
+// ////////////////////////////////////////////////////////////////////
+
+<group name="MilitaryLootBase" pos="5200 7800" />
+
+<!--
+This places the entire structure at:
+
+X = 5200
+Z = 7800
+
+Everything defined in proto spawns here automatically
+-->
+
+
+
+//////////////////////////////////////////////////////////////////////
+// MULTIPLE LOOT ZONES USING SAME BUILD
+//////////////////////////////////////////////////////////////////////
+
+<group name="MilitaryLootBase" pos="5200 7800" />
+<group name="MilitaryLootBase" pos="5300 7850" />
+<group name="MilitaryLootBase" pos="5400 7900" />
+
+<!--
+Result:
+- multiple identical military loot bases
+- spread across map
+- creates "hot zones"
+-->
+
+
+
+//////////////////////////////////////////////////////////////////////
+// HOW LOOT ACTUALLY SPAWNS INSIDE BUILDS
+//////////////////////////////////////////////////////////////////////
+
+/*
+IMPORTANT TRUTH:
+
+mapgroupproto DOES NOT spawn loot.
+
+It only spawns OBJECTS.
+
+Loot comes from:
+
+1. types.xml (item definitions)
+2. class names inside containers
+3. Central Economy spawn rules
+*/
+
+
+
+//////////////////////////////////////////////////////////////////////
+// HOW TO TURN A BUILD INTO A LOOT ZONE
+//////////////////////////////////////////////////////////////////////
+
+STEP 1: Place containers in mapgroupproto
+
+<group name="LootCamp">
+
+    <child name="Land_WoodenCrate" pos="0 0 0" rpy="0 0 0" />
+    <child name="Land_SeaChest" pos="2 0 0" rpy="0 0 0" />
+    <child name="Land_MetalCrate" pos="-2 0 0" rpy="0 0 0" />
+
+</group>
+
+
+
+STEP 2: Place group in world
+
+<group name="LootCamp" pos="6100 9000" />
+
+
+
+STEP 3: Ensure loot is enabled in types.xml
+
+Example:
+
+<class name="WoodenCrate">
+    <nominal>10</nominal>
+    <min>5</min>
+    <lifetime>3600</lifetime>
+</class>
+
+
+
+RESULT:
+
+- crates spawn via mapgroupproto
+- crates fill via CE loot system
+- players loot crates naturally
+
+
+
+//////////////////////////////////////////////////////////////////////
+// MILITARY LOOT ZONE DESIGN
+//////////////////////////////////////////////////////////////////////
+
+<group name="MilitaryHotZone">
+
+    <child name="Land_Mil_Barracks" pos="0 0 0" rpy="0 0 0" />
+
+    <child name="Land_Mil_Tower_Small" pos="10 0 5" rpy="0 0 90" />
+
+    <child name="Land_BagFence_Long" pos="5 0 2" rpy="0 0 0" />
+
+    <child name="Land_CamoNet" pos="-5 0 3" rpy="0 0 0" />
+
+    <child name="Land_WoodenCrate" pos="0 0 -4" rpy="0 0 0" />
+
+</group>
+
+
+
+mapgrouppos.xml:
+
+<group name="MilitaryHotZone" pos="4500 8200" />
+
+
+
+RESULT:
+- full military base spawns
+- crates spawn inside
+- loot economy fills containers
+- creates PvP hotspot
+
+
+
+//////////////////////////////////////////////////////////////////////
+// SURVIVOR LOOT CAMP EXAMPLE
+//////////////////////////////////////////////////////////////////////
+
+<group name="SurvivorLootCamp">
+
+    <child name="Land_TentDome" pos="0 0 0" rpy="0 0 0" />
+
+    <child name="Land_Fireplace" pos="2 0 1" rpy="0 0 0" />
+
+    <child name="Land_WoodenCrate" pos="-2 0 2" rpy="0 0 0" />
+
+    <child name="Land_SeaChest" pos="1 0 -3" rpy="0 0 0" />
+
+</group>
+
+
+
+mapgrouppos.xml:
+
+<group name="SurvivorLootCamp" pos="6700 7400" />
+
+
+
+RESULT:
+- realistic survivor camp
+- natural loot flow
+- light PvE / PvP hotspot
+
+
+
+//////////////////////////////////////////////////////////////////////
+// TRADER LOOT + SAFE ZONE BUILD
+//////////////////////////////////////////////////////////////////////
+
+<group name="TraderBase">
+
+    <child name="Land_Container_1Aoh" pos="0 0 0" rpy="0 0 0" />
+
+    <child name="Land_Market_Stall" pos="3 0 2" rpy="0 0 90" />
+
+    <child name="Land_Table_Wooden" pos="-2 0 2" rpy="0 0 0" />
+
+</group>
+
+
+
+mapgrouppos.xml:
+
+<group name="TraderBase" pos="3200 5400" />
+
+
+
+IMPORTANT:
+
+- Usually paired with safe zone scripts
+- Zombies often disabled here
+- PvP restricted via server mods
+
+
+
+//////////////////////////////////////////////////////////////////////
+// HOW CENTRAL ECONOMY INTERACTS WITH BUILDS
+//////////////////////////////////////////////////////////////////////
+
+/*
+CE SYSTEM FLOW:
+
+1. mapgroupproto spawns buildings + containers
+2. server starts economy system
+3. types.xml fills containers
+4. players loot containers
+
+IMPORTANT:
+Without types.xml setup → containers stay empty
+*/
+
+
+
+//////////////////////////////////////////////////////////////////////
+// BEST PRACTICE DESIGN RULES
+//////////////////////////////////////////////////////////////////////
+
+/*
+
+GOOD DESIGN:
+
+- Place loot containers INSIDE cover
+- Avoid open-field loot spam
+- Mix military + civilian props
+- Use spacing for realism
+- Limit group density for performance
+
+BAD DESIGN:
+
+- stacking 50 crates in one spot
+- floating buildings
+- overlapping groups
+- unrealistic loot clusters
+*/
+
+
+
+//////////////////////////////////////////////////////////////////////
+// COMMON ERROR SYSTEM
+//////////////////////////////////////////////////////////////////////
+
+/*
+
+ERROR 1:
+Group exists in proto but NOT in pos
+→ nothing spawns
+
+ERROR 2:
+Wrong classname in child
+→ object missing silently
+
+ERROR 3:
+No loot defined in types.xml
+→ empty containers
+
+ERROR 4:
+Too many groups in one area
+→ server lag
+
+ERROR 5:
+Bad coords (outside map)
+→ nothing appears
+*/
+
+
+
+//////////////////////////////////////////////////////////////////////
+// WHY THIS SYSTEM IS POWERFUL
+//////////////////////////////////////////////////////////////////////
+
+/*
+Using BOTH files together allows you to:
+
+- Build entire custom towns
+- Create military zones
+- Design loot progression areas
+- Control player movement
+- Shape PvP hotspots
+- Build immersive survival areas
+*/
+
+
+
+//////////////////////////////////////////////////////////////////////
+// FINAL SUMMARY
+//////////////////////////////////////////////////////////////////////
+
+/*
+mapgroupproto.xml
+→ WHAT is built (objects, structures)
+
+mapgrouppos.xml
+→ WHERE it is placed on the map
+
+types.xml
+→ WHAT loot fills containers
+
+TOGETHER:
+→ full dynamic world building system
+*/
+
+
+
+//////////////////////////////////////////////////////////////////////
+// END OF COMBINED MAPGROUP SYSTEM GUIDE
+//////////////////////////////////////////////////////////////////////
