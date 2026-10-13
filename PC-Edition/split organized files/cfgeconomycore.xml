@@ -43,7 +43,7 @@ Do not forget to add attribute act="car", if root class represents moveable vehi
 		<default name="save_events_startup" value="true"/>
 		<default name="save_types_startup" value="true"/>
 	</defaults>
-	<ce folder="Vanilla_ce">
+	<ce folder="db_ce">
 		<file name="Ammo_types.xml" type="types" />
 		<file name="Animal_types.xml" type="types" />
 		<file name="Armband_types.xml" type="types" />
